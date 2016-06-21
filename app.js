@@ -5,7 +5,7 @@ var WIDTH = 272;
 function loadFrame(index) {
   return new Promise(function(resolve, reject) {
     var image = new Image();
-    image.src = 'frames/Frame' + (index+1) + '.png';
+    image.src = 'frames/Frame' + (index + 1) + '.png';
     image.onload = resolve;
     frames[index] = image;
 
@@ -31,6 +31,18 @@ var initFyuse = function() {
     }
   }, false);
 };
+
+window.addEventListener("deviceorientation", function(event) {
+  var xValue = Math.round(event.gamma);
+
+  var prev = document.querySelector('#fyuse .visible');
+  var frameIndex = Math.round((xValue - frameCount) / frameWidth);
+
+  if ((frames[frameIndex] !== prev) && frames[frameIndex]) {
+    prev && prev.classList.remove('visible');
+    frames[frameIndex] && frames[frameIndex].classList.add('visible');
+  }
+}, true);
 
 var promises = [];
 for (var i = 0; i < 51; i++) {
