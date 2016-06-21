@@ -1,4 +1,5 @@
 var fyuse = document.getElementById('fyuse');
+var d = document.getElementById('#debug');
 var frames = [];
 var WIDTH = 272;
 
@@ -36,7 +37,7 @@ window.addEventListener("deviceorientation", function(event) {
   var xValue = Math.round(event.gamma);
   var frameCount = frames.length;
   var frameWidth = WIDTH / frameCount;
-
+  debug.innerHTML = xValue;
 
   var prev = document.querySelector('#fyuse .visible');
   var frameIndex = Math.round((WIDTH / 2) + xValue / frameWidth);
