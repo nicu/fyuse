@@ -36,7 +36,7 @@ var initFyuse = function() {
 window.addEventListener("deviceorientation", function(event) {
   var xValue = Math.round(event.gamma);
   var frameCount = frames.length;
-  var frameWidth = WIDTH / frameCount;
+  var frameWidth = 1;
 
   var prev = document.querySelector('#fyuse .visible');
   var frameIndex = Math.round((30 + xValue) / frameWidth);
