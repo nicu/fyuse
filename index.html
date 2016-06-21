@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <style>
+        #canvas,
+        #video {
+            display: none;
+        }
+        
+        #fyuse {
+            position: relative;
+        }
+        
+        #fyuse img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            /*width: 300px;*/
+            border: 1px solid gray;
+            display: none;
+            /*opacity: 0;*/
+            transform: translate3d(0, 0, 0);
+            /*transition: opacity .25s linear;*/
+        }
+        
+        #fyuse img.visible {
+          display: block;
+            /*opacity: 1;*/
+            /*transition: opacity 0s linear;*/
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="loading">Loading video</h1>
+
+    <video id="video" src="movie.mov" height="800"></video>
+    <canvas id="canvas"></canvas>
+
+    <div id="fyuse"></div>
+    
+    <script src="app.js" charset="utf-8"></script>
+</body>
+
+</html>
