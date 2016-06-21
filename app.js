@@ -37,10 +37,11 @@ window.addEventListener("deviceorientation", function(event) {
   var xValue = Math.round(event.gamma);
   var frameCount = frames.length;
   var frameWidth = WIDTH / frameCount;
-  debug.innerHTML = xValue;
 
   var prev = document.querySelector('#fyuse .visible');
   var frameIndex = Math.round((30 + xValue) / frameWidth);
+
+  debug.innerHTML = xValue + ', ' + frameIndex;
 
   if ((frames[frameIndex] !== prev) && frames[frameIndex]) {
     prev && prev.classList.remove('visible');
