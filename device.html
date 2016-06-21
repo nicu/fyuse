@@ -1,0 +1,24 @@
+<html>
+  <head></head>
+  <body>
+    <script type="text/javascript">
+      if (window.DeviceOrientationEvent) {
+
+    window.addEventListener("deviceorientation", function(event)
+    {
+
+      var xValue = Math.round(event.gamma);
+      var yValue = Math.round(event.beta);
+      var Rotation = Math.round(event.alpha);
+
+    }, true);
+
+
+
+  } else {
+  alert("Sorry, your browser doesn't support Device Orientation");
+  }
+
+    </script>
+  </body>
+</html>
