@@ -33,7 +33,10 @@
 <body>
     <h1 class="loading">Loading video</h1>
 
-    <video id="video" src="movie.mov" height="800"></video>
+    <video id="video" height="800" preload>
+        <source src="movie-mobile.m4v" media="only screen and (max-device-width: 568px)"></source>
+        <source src="movie.mov" media="only screen and (min-device-width: 568px)"></source>
+    </video>
     <canvas id="canvas"></canvas>
 
     <div id="fyuse"></div>
