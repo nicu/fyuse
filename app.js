@@ -15,7 +15,7 @@ var initFyuse = function() {
 
   document.querySelector('#fyuse img').classList.add('visible');
 
-  fyuse.addEventListener('mousemove', (evt) => {
+  fyuse.addEventListener('mousemove', function(evt) {
     var prev = document.querySelector('#fyuse .visible');
     var frameIndex = Math.round(evt.clientX / frameWidth);
 
