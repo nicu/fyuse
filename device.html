@@ -2,6 +2,10 @@
   <head></head>
   <body>
     <script type="text/javascript">
+function log(a, b, c) {
+  document.body.innerText = a + ', ' + b + ', ' + c;
+}
+
       if (window.DeviceOrientationEvent) {
 
     window.addEventListener("deviceorientation", function(event)
@@ -10,7 +14,7 @@
       var xValue = Math.round(event.gamma);
       var yValue = Math.round(event.beta);
       var Rotation = Math.round(event.alpha);
-
+      log(xValue, yValue, Rotation);
     }, true);
 
 
