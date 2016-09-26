@@ -1,7 +1,7 @@
 var fyuse = document.getElementById('fyuse');
 var d = document.getElementById('#debug');
 var frames = [];
-var WIDTH = 272;
+var WIDTH = 642;
 
 function loadFrame(index) {
   return new Promise(function(resolve, reject) {
