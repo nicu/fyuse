@@ -79,7 +79,7 @@
   function frameFromPointer(evt) {
     var rect = fyuse.getBoundingClientRect();
     if (rect.width === 0) return;
-    var x = (evt.clientX - rect.left) / rect.width; // 0..1 across the image
+    var x = 1 - (evt.clientX - rect.left) / rect.width;
     setTarget(x * (FRAME_COUNT - 1));
   }
 
