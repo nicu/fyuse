@@ -8,18 +8,28 @@ function loadFrame(index) {
   return new Promise(function(resolve, reject) {
     var image = new Image();
     image.src = 'frames/Frame' + (index + 1) + '.png';
-    image.onload = resolve;
-    frames[index] = image;
-
-    fyuse.appendChild(image);
+    image.onload = function() {
+      frames[index] = image;
+      resolve();
+    };
+    image.onerror = function() {
+      console.error('Failed to load frame ' + (index + 1));
+      reject(new Error('Failed to load frame ' + (index + 1)));
+    };
   });
 }
 
 var initFyuse = function() {
-  document.querySelector('.loading').remove();
+  var loadingEl = document.querySelector('.loading');
+  if (loadingEl) loadingEl.remove();
 
   var frameCount = frames.length;
   var frameWidth = WIDTH / frameCount;
+
+  // Append all images to fyuse in order
+  frames.forEach(function(img) {
+    fyuse.appendChild(img);
+  });
 
   if (frames.length > 0) {
     frames[0].classList.add('visible');
@@ -37,8 +47,10 @@ var initFyuse = function() {
   }, false);
 };
 
-window.addEventListener("deviceorientation", function(event) {
+function handleOrientation(event) {
   var xValue = event.gamma;
+  if (xValue === null || xValue === undefined) return;
+
   var frameCount = frames.length;
   if (frameCount === 0) return;
 
@@ -52,11 +64,21 @@ window.addEventListener("deviceorientation", function(event) {
     if (prev) prev.classList.remove('visible');
     frames[frameIndex].classList.add('visible');
   }
-}, true);
+}
+
+window.addEventListener("deviceorientation", handleOrientation, true);
 
 var promises = [];
 for (var i = 0; i < 51; i++) {
   promises.push(loadFrame(i));
 }
 
-Promise.all(promises).then(initFyuse);
+Promise.all(promises)
+  .then(initFyuse)
+  .catch(function(err) {
+    console.error('Error initializing fyuse:', err);
+    var loadingEl = document.querySelector('.loading');
+    if (loadingEl) {
+      loadingEl.innerHTML = 'Error loading frames. Check console.';
+    }
+  });
