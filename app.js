@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var TILT_INVERT = true;
+  var TILT_INVERT = false;
   var FRAME_COUNT = 51;
   var TILT_RANGE = 30; // degrees of tilt (left/right) that maps to the full frame range
   var EASE = 0.18; // 0..1, higher = snappier animation toward the target frame
