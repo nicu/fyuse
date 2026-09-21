@@ -1,43 +1,75 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style>
-        #video {
-            display: none;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fyuse viewer</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      overscroll-behavior: none;
+    }
 
-        #fyuse {
-            position: relative;
-        }
+    .loading {
+      margin: 16px;
+      font-size: 18px;
+    }
 
-        #fyuse img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            /*width: 300px;*/
-            border: 1px solid gray;
-            display: none;
-            /*opacity: 0;*/
-            transform: translate3d(0, 0, 0);
-            /*transition: opacity .25s linear;*/
-        }
+    #debug {
+      margin: 8px 16px;
+      font-size: 12px;
+      color: #666;
+      min-height: 1em;
+    }
 
-        #fyuse img.visible {
-          display: block;
-            /*opacity: 1;*/
-            /*transition: opacity 0s linear;*/
-        }
-    </style>
+    #fyuse {
+      position: relative;
+      width: min(100vw, 600px);
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid gray;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;        /* stop the browser stealing touch drags for scrolling */
+      cursor: ew-resize;
+    }
+
+    #fyuse img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      display: block;
+      visibility: hidden;        /* visibility (not display) keeps decoded images ready to paint */
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+
+    #fyuse img.visible {
+      visibility: visible;
+    }
+
+    #enable-tilt {
+      display: none;
+      margin: 16px auto;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #888;
+      background: #f3f3f3;
+    }
+  </style>
 </head>
-
 <body>
-    <h1 class="loading">Loading...</h1>
+  <h1 class="loading">Loading…</h1>
+  <div id="debug"></div>
+  <div id="fyuse"></div>
+  <button id="enable-tilt" type="button">Enable tilt control</button>
 
-    <div id="debug"></div>
-
-    <div id="fyuse"></div>
-
-    <script src="app.js" charset="utf-8"></script>
+  <script src="app.js"></script>
 </body>
-
 </html>
