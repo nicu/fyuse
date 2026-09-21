@@ -1,7 +1,8 @@
 var fyuse = document.getElementById('fyuse');
-var d = document.getElementById('#debug');
+var debug = document.getElementById('debug');
 var frames = [];
 var WIDTH = 272;
+var frameCount = 0;
 
 function loadFrame(index) {
   return new Promise(function(resolve, reject) {
@@ -20,32 +21,36 @@ var initFyuse = function() {
   var frameCount = frames.length;
   var frameWidth = WIDTH / frameCount;
 
-  document.querySelector('#fyuse img').classList.add('visible');
+  if (frames.length > 0) {
+    frames[0].classList.add('visible');
+  }
 
   fyuse.addEventListener('mousemove', function(evt) {
     var prev = document.querySelector('#fyuse .visible');
-    var frameIndex = Math.round(evt.clientX / frameWidth);
+    var frameIndex = Math.round(evt.offsetX / frameWidth);
+    frameIndex = Math.max(0, Math.min(frames.length - 1, frameIndex));
 
-    if ((frames[frameIndex] !== prev) && frames[frameIndex]) {
-      prev && prev.classList.remove('visible');
-      frames[frameIndex] && frames[frameIndex].classList.add('visible');
+    if (frames[frameIndex] && frames[frameIndex] !== prev) {
+      if (prev) prev.classList.remove('visible');
+      frames[frameIndex].classList.add('visible');
     }
   }, false);
 };
 
 window.addEventListener("deviceorientation", function(event) {
-  var xValue = Math.round(event.gamma);
+  var xValue = event.gamma;
   var frameCount = frames.length;
-  var frameWidth = 1;
+  if (frameCount === 0) return;
+
+  var frameIndex = Math.round(((xValue + 90) / 180) * (frameCount - 1));
+  frameIndex = Math.max(0, Math.min(frameCount - 1, frameIndex));
+
+  debug.innerHTML = "Gamma: " + xValue.toFixed(2) + ", Index: " + frameIndex;
 
   var prev = document.querySelector('#fyuse .visible');
-  var frameIndex = Math.round((30 + xValue) / frameWidth);
-
-  debug.innerHTML = xValue + ', ' + frameIndex;
-
-  if ((frames[frameIndex] !== prev) && frames[frameIndex]) {
-    prev && prev.classList.remove('visible');
-    frames[frameIndex] && frames[frameIndex].classList.add('visible');
+  if (frames[frameIndex] && frames[frameIndex] !== prev) {
+    if (prev) prev.classList.remove('visible');
+    frames[frameIndex].classList.add('visible');
   }
 }, true);
 
