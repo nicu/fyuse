@@ -1,6 +1,7 @@
 (function () {
   "use strict";
 
+  var TILT_INVERT = true;
   var FRAME_COUNT = 51;
   var TILT_RANGE = 30; // degrees of tilt (left/right) that maps to the full frame range
   var EASE = 0.18; // 0..1, higher = snappier animation toward the target frame
@@ -124,6 +125,8 @@
       smoothedTilt === null
         ? tilt
         : smoothedTilt + (tilt - smoothedTilt) * SMOOTH_TILT;
+
+    if (TILT_INVERT) smoothedTilt = -smoothedTilt;
 
     var t = (smoothedTilt + TILT_RANGE) / (2 * TILT_RANGE); // -RANGE..+RANGE -> 0..1
     t = Math.max(0, Math.min(1, t));
